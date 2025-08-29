@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Framz Store ✨</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="navbar">
+    <h1 class="logo">Framz Store ✨</h1>
+  </header>
+
+  <!-- Product Listing -->
+  <main class="product-list">
+    <!-- Product 1 -->
+    <div class="product-card">
+      <div class="slideshow">
+        <img src="products/137_4.webp" alt="Product 1 image 1" class="active">
+        <img src="products/close-up-man-selfcare-products_23-2149313028.jpg" alt="Product 1 image 2">
+        <img src="products/close-up-man-selfcare-products_23-2149313027.avif" alt="Product 1 image 3">
+
+        <button class="prev">&#10094;</button>
+        <button class="next">&#10095;</button>
+      </div>
+      <h3>Actress Poster</h3>
+      <p class="price">Starting ➡️ ₹299</p>
+      <button class="btn">Explore</button>
+    </div>
+
+    <!-- Product 2 -->
+    <div class="product-card">
+      <div class="slideshow">
+        <img src="products/Screenshot 2025-07-20 191933.png" alt="Product 2 image 1" class="active">
+        <img src="products/Screenshot 2025-07-20 191812.png" alt="Product 2 image 2">
+        <img src="products/Screenshot 2025-07-20 191620.png" alt="Product 2 image 3">
+
+        <button class="prev">&#10094;</button>
+        <button class="next">&#10095;</button>
+      </div>
+      <h3>Actress Dress</h3>
+      <p class="price">Starting From ➡️ ₹1299</p>
+      <button class="btn">Coming Soon</button>
+    </div>
+
+    <!-- Product 3: Exclusive Wallpaper -->
+    <div class="product-card full-width">
+      <div class="slideshow">
+        <img src="images/2025-08-21_07-32-04_2197.png" alt="Wallpaper 1" class="active">
+        <img src="images/f71383213b0fc71649d8e72dc3653445.jpg" alt="Wallpaper 2">
+        <img src="images/2025-08-27_01-09-22_2252.png" alt="Wallpaper 3">
+        <img src="images/2025-08-27_01-19-43_7781.png" alt="Wallpaper 4">
+        <img src="images/2025-08-21_06-49-16_2056.png" alt="Wallpaper 5">
+
+        <button class="prev">&#10094;</button>
+        <button class="next">&#10095;</button>
+      </div>
+      <h3>Exclusive Wallpaper</h3>
+      <p class="price">₹19</p>
+      <button class="btn exclusive-buy">Buy Now</button>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Star Store | Made with 💛 by Junior</p>
+  </footer>
+
+  <!-- Exclusive Popup -->
+  <div id="exclusivePopup" class="popup">
+    <div class="popup-content">
+      <span id="closePopup" class="close-btn">&times;</span>
+      <h2>Get the Exclusive content and join our affiliate program 🚀</h2>
+      <button class="membership-btn">Buy Membership - ₹99/month</button>
+    </div>
+  </div>
+
+  <!-- Slideshow Script -->
+  <script>
+    document.querySelectorAll(".slideshow").forEach(slideshow => {
+      let slides = slideshow.querySelectorAll("img");
+      let prevBtn = slideshow.querySelector(".prev");
+      let nextBtn = slideshow.querySelector(".next");
+      let index = 0;
+
+      function showSlide(i) {
+        slides.forEach(slide => slide.classList.remove("active"));
+        slides[i].classList.add("active");
+      }
+
+      function showNextSlide() {
+        index = (index + 1) % slides.length;
+        showSlide(index);
+      }
+
+      function showPrevSlide() {
+        index = (index - 1 + slides.length) % slides.length;
+        showSlide(index);
+      }
+
+      let interval = setInterval(showNextSlide, 3000);
+
+      nextBtn.addEventListener("click", () => {
+        showNextSlide();
+        resetInterval();
+      });
+
+      prevBtn.addEventListener("click", () => {
+        showPrevSlide();
+        resetInterval();
+      });
+
+      slideshow.addEventListener("mouseenter", () => clearInterval(interval));
+      slideshow.addEventListener("mouseleave", () => resetInterval());
+
+      function resetInterval() {
+        clearInterval(interval);
+        interval = setInterval(showNextSlide, 3000);
+      }
+    });
+  </script>
+
+  <!-- Popup Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const popup = document.getElementById("exclusivePopup");
+      const buyBtn = document.querySelector(".exclusive-buy");
+      const closePopup = document.getElementById("closePopup");
+
+      if (buyBtn) {
+        buyBtn.addEventListener("click", () => {
+          popup.classList.add("show");
+        });
+      }
+
+      if (closePopup) {
+        closePopup.addEventListener("click", () => {
+          popup.classList.remove("show");
+        });
+      }
+
+      window.addEventListener("click", (e) => {
+        if (e.target === popup) {
+          popup.classList.remove("show");
+        }
+      });
+    });
+  </script>
+
+
+
+</body>
+</html>

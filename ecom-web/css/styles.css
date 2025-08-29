@@ -1,0 +1,300 @@
+/* ---------------- RESET ---------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ---------------- BODY ---------------- */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #fff;
+  color: #222;
+}
+
+/* ---------------- NAVBAR ---------------- */
+.navbar {
+  text-align: center;
+  padding: 1rem;
+  background: #ffcc00;
+  font-weight: bold;
+  font-size: 1.3rem;
+  letter-spacing: 1px;
+}
+
+/* ---------------- PRODUCT GRID ---------------- */
+.product-list {
+  display: grid;
+  grid-template-columns: 1fr; /* default mobile */
+  gap: 1.5rem;
+  padding: 1.5rem;
+}
+
+/* ---------------- PRODUCT CARD ---------------- */
+.product-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.3s;
+}
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+/* ---------------- SLIDESHOW ---------------- */
+.slideshow {
+  position: relative;
+  width: 100%;
+  height: 350px;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.slideshow img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out, transform 0.5s ease;
+  border-radius: 12px;
+}
+
+.slideshow img.active {
+  opacity: 1;
+}
+
+/* Hover zoom */
+.slideshow:hover img.active {
+  transform: scale(1.05);
+}
+
+/* Arrows */
+.slideshow button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.4);
+  color: white;
+  border: none;
+  padding: 0.6rem;
+  cursor: pointer;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  transition: background 0.3s;
+}
+.slideshow button:hover {
+  background: rgba(0,0,0,0.7);
+}
+.slideshow .prev { left: 10px; }
+.slideshow .next { right: 10px; }
+
+/* ---------------- FULL WIDTH FEATURED CARD ---------------- */
+.product-card.full-width {
+  grid-column: 1 / -1;
+}
+.product-card.full-width .slideshow {
+  aspect-ratio: 16 / 9;
+  height: auto;
+}
+.product-card.full-width .slideshow img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------------- PRODUCT DETAILS ---------------- */
+.product-card img {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+.product-card h3 {
+  margin: 0.8rem 0 0.3rem;
+  font-size: 1.2rem;
+}
+.price {
+  font-size: 1rem;
+  color: #444;
+  margin-bottom: 0.8rem;
+}
+
+/* ---------------- BUTTONS ---------------- */
+.btn {
+  background: #ffcc00;
+  border: none;
+  padding: 0.7rem 1.2rem;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.btn:hover {
+  background: #ffdb4d;
+}
+
+/* ---------------- RESPONSIVE GRID ---------------- */
+@media (min-width: 600px) {
+  .product-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 900px) {
+  .product-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ---------------- POPUP ---------------- */
+.popup {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+}
+
+/* Show Class */
+.popup.show {
+  display: flex;
+}
+
+/* Popup Box */
+.popup-content {
+  width: 300px;
+  height: 300px;
+  background: linear-gradient(270deg, yellow, blue, green);
+  background-size: 400% 400%;
+  animation: gradientShift 8s infinite linear;
+  border-radius: 12px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #000;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  text-align: center;
+  overflow: hidden;
+  transform: scale(0.7);
+  opacity: 0;
+  transition: all 0.4s ease-in-out;
+}
+
+/* Animate popup in */
+.popup.show .popup-content {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* Moving glowing border */
+.popup-content::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  padding: 3px;
+
+  /* Metallic Silver Gradient Base */
+  background: linear-gradient(120deg, 
+              #c0c0c0 20%, #e6e6e6 40%, #ffffff 50%, 
+              #e6e6e6 60%, #c0c0c0 80%);
+  background-size: 200% 200%;
+  animation: shineMove 3s linear infinite;
+
+  /* Mask to show border only */
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  z-index: 1;
+}
+
+/* Gradient shift inside box */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+/* Border rotation */
+@keyframes shineMove {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+/* Close button */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 20px;
+  cursor: pointer;
+  color: black;
+  font-weight: bold;
+}
+
+/* Membership button inside popup */
+.membership-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: none;
+  background: silver;
+  color: black;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+.membership-btn:hover {
+  background: #ddd;
+}
+
+
+/* Premium Button with Ripple Animation */
+.btn exclusive-buy {
+  position: relative;
+  display: inline-block;
+  padding: 0.7rem 1.4rem;
+  border-radius: 25px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #e63946;
+  font-weight: bold;
+  text-decoration: none;
+  overflow: hidden;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+
+.btn exclusive-buy span {
+  position: relative;
+  z-index: 2;
+}
+
+.btn exclusive-buy::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: #e63946;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.6s ease-out;
+  z-index: 1;
+}
+
+.btn exclusive-buy.clicked::after {
+  transform: translate(-50%, -50%) scale(40);
+}
+
+.btn exclusive-buy.clicked {
+  color: #fff;
+}
